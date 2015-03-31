@@ -10,11 +10,16 @@
 </constructor-arg>
 </bean>
 
-<bean id="Lecture2" class="Lecture">
+<bean id="lecture2" class="Lecture">
 <constructor-arg>
 <value>C언어수정1</value>
 </constructor-arg>
 </bean>
 
+<bean id = "manager1" class = "Manager">
+<constructor-arg>
+<value>software</value>
+</constructor-arg>
+</bean>
 
 </beans>

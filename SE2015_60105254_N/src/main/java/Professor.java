@@ -11,6 +11,7 @@ public class Professor {
 	}
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
+	
 	public void addLecutre(Lecture lecture) {
 		// TODO Auto-generated method stub
 		this.lecture = lecture;
