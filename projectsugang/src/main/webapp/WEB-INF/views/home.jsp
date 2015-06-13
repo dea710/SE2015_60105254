@@ -8,18 +8,30 @@
 </head>
 <body>
 <h1>학사관리시스템</h1>
-<br/>
-<br/>
 <h3>
-	로그인 
+	로그인 (<a href="FirstController/first">처음 실행하시는 분은 이곳으로...</a>)
 </h3>
-
-
 	<form action="LoginController/login.do" method="post">	
-		사용자 아이디 <input type="text" name="userID"> <br/>
-		비밀번호  <input type="password" name="userPassword"><br/>
-		<input type="submit" value="로그인">.
+		<table>
+			<tr>
+				<td>
+					사용자 아이디 <input type="text" name="userID">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					비밀번호  <input type="password" name="userPassword">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="로그인">
+				</td>
+			</tr>
+		</table>
 	</form>
+	<br>
+	
 		<a href="JoinController/join">회원가입</a>
 </body>
 </html>

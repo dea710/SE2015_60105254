@@ -1,12 +1,40 @@
 package kr.ac.mju.DAO;
-//user table
-//userid(10), password(10), name(10), grade(10)
+/*
+CREATE TABLE `projectsogong`.`gangjwa`(
+`gangjwaid` VARCHAR(45) NOT NULL,
+`name` VARCHAR(45),
+`time` VARCHAR(45),
+`userid` VARCHAR(45),
+`inwon` INT(3),
+`hackjum` INT(2),
+`openyear` INT(4),
+`ngrade` INT(2),
+PRIMARY KEY (`gangjwaid`)
+);
 
-//gangjwa table
-//gangjwaid varchar(10) primary key,name varchar(10),class varchar(10),time varchar(20),userid varchar(10), inwon int(3)
+CREATE TABLE `projectsogong`.`sugang`(
+`sugangid` INT(11) NOT NULL AUTO_INCREMENT,
+`userid` VARCHAR(45) NOT NULL,
+`gangjwaid` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`sugangid`)
+);
 
-//sugnag table
-//sugangid varchar(10) primary key,userid varchar(10)
+CREATE TABLE `projectsogong`.`sungjeck`(
+`sungjeckid` INT(11) NOT NULL AUTO_INCREMENT,
+`gangjwaid` VARCHAR(45) NOT NULL,
+`userid` VARCHAR(45) NOT NULL,
+`grade` VARCHAR(45) NOT NULL DEFAULT 'N',
+PRIMARY KEY (`sungjeckid`)
+);
+
+CREATE TABLE `projectsogong`.`user`(
+`userid` VARCHAR(45) NOT NULL,
+`password` VARCHAR(45),
+`name` VARCHAR(45),
+`grade` VARCHAR(45),
+PRIMARY KEY (`userid`)
+);
+ */
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,9 +52,11 @@ import kr.ac.mju.VEntity.SugangShow;
 import kr.ac.mju.VEntity.SugangSungjeck;
 
 public class DBDAO implements IDAO{
-	private final static String URL = "jdbc:mysql://localhost:3306/projectsogong";//database이름
-	private final static String ID = "sogongproject";//mysql아이디
+	private final static String DB = "daesung";
+	private final static String URL = "jdbc:mysql://localhost:3306/" + DB;//database이름
+	private final static String ID = "PDS";//mysql아이디 = Account
 	private final static String PASSWORD = "mju12345";//mysql암호
+	private final static String ROOTPASS = "deasql";
 	
 	static{
 		try {
@@ -173,7 +203,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.inwon, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid;";
+		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.inwon, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade from " + DB + ".gangjwa, " + DB + ".user where gangjwa.userid = user.userid;";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -211,7 +241,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade, gangjwa.inwon from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid and user.userid = '" + ID + "';";
+		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade, gangjwa.inwon from " + DB + ".gangjwa, " + DB + ".user where gangjwa.userid = user.userid and user.userid = '" + ID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -249,7 +279,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select sugang.gangjwaid, gangjwa.NAME, gangjwa.hackjum, gangjwa.time from projectsogong.sugang, projectsogong.user, projectsogong.gangjwa where sugang.userid = user.userid and gangjwa.gangjwaid = sugang.gangjwaid and user.userid = '" + ID + "';";
+		String sql = "select sugang.gangjwaid, gangjwa.NAME, gangjwa.hackjum, gangjwa.time from " + DB + ".sugang, " + DB + ".user, " + DB + ".gangjwa where sugang.userid = user.userid and gangjwa.gangjwaid = sugang.gangjwaid and user.userid = '" + ID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -279,7 +309,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select h.name, sungjeck.userid, grade from projectsogong.sungjeck, (select name, sugang.userid from projectsogong.sugang, projectsogong.user where sugang.userid = user.userid and gangjwaid = '" + gangjwaID + "') h where sungjeck.userid = h.userid;";
+		String sql = "select h.name, sungjeck.userid, grade from " + DB + ".sungjeck, (select name, sugang.userid from " + DB + ".sugang, " + DB + ".user where sugang.userid = user.userid and gangjwaid = '" + gangjwaID + "') h where sungjeck.userid = h.userid;";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -314,7 +344,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.name, gangjwa.gangjwaid, sugangs.grade from projectsogong.gangjwa, (SELECT sungjeck.gangjwaid, sungjeck.grade, sungjeck.userid FROM projectsogong.sungjeck, projectsogong.sugang where sungjeck.userid = sugang.userid and sungjeck.gangjwaid = sugang.gangjwaid) sugangs where sugangs.gangjwaid = gangjwa.gangjwaid and sugangs.userid = '" + userID + "';";
+		String sql = "select gangjwa.name, gangjwa.gangjwaid, sugangs.grade from " + DB + ".gangjwa, (SELECT sungjeck.gangjwaid, sungjeck.grade, sungjeck.userid FROM " + DB + ".sungjeck, " + DB + ".sugang where sungjeck.userid = sugang.userid and sungjeck.gangjwaid = sugang.gangjwaid) sugangs where sugangs.gangjwaid = gangjwa.gangjwaid and sugangs.userid = '" + userID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -346,7 +376,7 @@ public class DBDAO implements IDAO{
 		Connection connection = null;
 		PreparedStatement statement = null;
 		connection = getConnection();
-		String updateSQL = "update projectsogong.sungjeck set grade = '" + grade + "' where gangjwaid = '" + gangjwaID + "' and userid = '" + userID + "';";
+		String updateSQL = "update " + DB + ".sungjeck set grade = '" + grade + "' where gangjwaid = '" + gangjwaID + "' and userid = '" + userID + "';";
 		statement = connection.prepareStatement(updateSQL);
 		statement.executeUpdate();
 		statement.close();
@@ -378,7 +408,48 @@ public class DBDAO implements IDAO{
 	@Override
 	public void disconnect() {
 		// TODO Auto-generated method stub
+	}
+	
+	public void createAccount() throws SQLException{
+		Connection connection = null; //연결소켓
+		PreparedStatement statement = null; //명령어 소켓 -> sql문
 		
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306","root",ROOTPASS);//관리자 계정 위치, 관리자 아이디, 암호
+		String accountSQL = "grant all privileges on *.* to " + ID + "@localhost identified by '" + PASSWORD + "' with grant option";//db에 날릴 쿼리부분 권한부여 부분이다.
+		statement = connection.prepareStatement(accountSQL);//  준비단계
+		statement.executeUpdate();//select문이 아니면 Update문이다.(ResultSet이 필요가 없는 부분) // 실행단계
+		statement.close();
+		connection.close();
+	}
+	
+	public void createDatabase() throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306",ID,PASSWORD);
+		String dbSQL = "create database " + DB;
+		statement = connection.prepareStatement(dbSQL);
+		statement.executeUpdate();
+		statement.close();
+		connection.close();
+	}
+	public void createTable() throws SQLException{
+		Connection connection = null;
+		PreparedStatement statement = null;
+		connection = getConnection();
+		String tableSQL = "CREATE TABLE gangjwa(gangjwaid VARCHAR(45) NOT NULL PRIMARY KEY, name VARCHAR(45), time VARCHAR(45), userid VARCHAR(45), inwon INT(3), hackjum INT(2), openyear INT(4), ngrade INT(2) );";
+		statement = connection.prepareStatement(tableSQL);
+		statement.executeUpdate();
+		tableSQL = "CREATE TABLE sugang(sugangid INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, userid VARCHAR(45) NOT NULL, gangjwaid VARCHAR(45) NOT NULL);";
+		statement = connection.prepareStatement(tableSQL);
+		statement.executeUpdate();
+		tableSQL = "CREATE TABLE sungjeck(sungjeckid INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, gangjwaid VARCHAR(45) NOT NULL, userid VARCHAR(45) NOT NULL, grade VARCHAR(45) NOT NULL DEFAULT 'N' );";
+		statement = connection.prepareStatement(tableSQL);
+		statement.executeUpdate();
+		tableSQL = "CREATE TABLE user(userid VARCHAR(45) NOT NULL PRIMARY KEY, password VARCHAR(45), name VARCHAR(45), grade VARCHAR(45) );";
+		statement = connection.prepareStatement(tableSQL);
+		statement.executeUpdate();
+		statement.close();
+		connection.close();
 	}
 
 }
