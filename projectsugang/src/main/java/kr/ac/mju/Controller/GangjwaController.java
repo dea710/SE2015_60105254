@@ -30,7 +30,7 @@ public class GangjwaController {
 		UserInfo userinfo = new UserInfo();
 		userinfo.setID(request.getParameter("userID"));
 		Gangjwa gangjwa = new Gangjwa();
-		gangjwa = service.gangjwa(request.getParameter("gangjwaID"), request.getParameter("name"), request.getParameter("classs"), request.getParameter("time"), request.getParameter("userID"), Integer.parseInt(request.getParameter("inwon")));
+		gangjwa = service.gangjwa(request.getParameter("gangjwaID"), request.getParameter("name"), request.getParameter("time"), request.getParameter("userID"), Integer.parseInt(request.getParameter("inwon")), Integer.parseInt(request.getParameter("hackjum")), Integer.parseInt(request.getParameter("openyear")), Integer.parseInt(request.getParameter("ngrade")));
 		//service생성 즉 control생성
 		service.gangjwagaeseol(gangjwa);
 		request.getSession().setAttribute("result", "강좌개설성공");

@@ -52,9 +52,8 @@ public class SungjeckController {
 		request.setCharacterEncoding("utf-8");
 		String userID = request.getParameter("userID");
 		String gangjwaID = request.getParameter("gangjwaID");
-		int score = Integer.parseInt(request.getParameter("score"));
 		String grade = request.getParameter("grade");
-		Sungjeckinput sungjeckinput = service.doo(userID, gangjwaID, score, grade);
+		Sungjeckinput sungjeckinput = service.doo(userID, gangjwaID, grade);
 		service.input(sungjeckinput);
 		request.getSession().setAttribute("result", "성적 입력 완료");
 		return "result";

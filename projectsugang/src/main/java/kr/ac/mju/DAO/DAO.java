@@ -48,7 +48,7 @@ public class DAO implements IDAO{
 	}
 	@Override
 	public void insert(String table, String value1, String value2,
-			String value3, String value4, String value5, String value6)
+			String value3, String value4, String value5, String value6, String value7, String value8)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		
@@ -80,14 +80,14 @@ public class DAO implements IDAO{
 		return null;
 	}
 	@Override
-	public void updateSungjeck(String gangjwaID, String userID, int score,
-			String grade) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public Vector<SugangSungjeck> selectsungjeck(String userID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public void updateSungjeck(String gangjwaID, String userID, String grade)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 }

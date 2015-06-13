@@ -16,8 +16,10 @@
 		강좌번호 <input type="text" name="gangjwaID"> <br/>
 		강좌이름 <input type="text" name="name"> <br/>
 		강좌시간(입력예제 00:00~00:50) <input type="text" name="time"> <br/>
-		반 <input type="text" name="classs"> <br/>
-		인원 <input type="text" name="inwon"> <br/>
+		연도 <input type="text" name="openyear"> <br/>
+		학년 <input type="text" name="ngrade"> <br/>
+		학점 <input type="text" name="hackjum"> <br/>
+		수강인원 <input type="text" name="inwon"> <br/>
 		<input type="hidden" name="userID" value='${ID}' >
 		
 		<input type="submit" value="강좌개설하기"> <input type="reset" value="다시입력">

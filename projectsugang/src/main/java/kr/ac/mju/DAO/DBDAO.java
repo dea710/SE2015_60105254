@@ -50,7 +50,7 @@ public class DBDAO implements IDAO{
 	}
 
 	@Override
-	public void insert(String table, String value1, String value2, String value3, String value4, String value5, String value6) throws SQLException {
+	public void insert(String table, String value1, String value2, String value3, String value4, String value5, String value6, String value7, String value8) throws SQLException {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		connection = getConnection();
@@ -68,10 +68,9 @@ public class DBDAO implements IDAO{
 			statement.close();
 		}else if(table.equals("gangjwa")){
 			//gangjwaid varchar(10) primary key,name varchar(10),class varchar(10),time varchar(20),userid varchar(10), inwon int(3)
-			datainSQL = "insert into gangjwa(gangjwaid, name, class, time, userid, inwon) values('"+ value1 +"','"+ value2 +"','"+ value3 +"','"+ value4 +"','"+ value5 +"','"+ value6 +"');";
+			datainSQL = "insert into gangjwa(gangjwaid, name, time, userid, inwon, hackjum, openyear, ngrade) values('"+ value1 +"','"+ value2 +"','"+ value3 +"','"+ value4 +"','"+ value5 +"','"+ value6 +"','"+ value7 +"','"+ value8 +"');";
 		}else if(table.equals("sungjeck")){
-			int intvalue = Integer.parseInt(value3);
-			datainSQL = "insert into sungjeck(gangjwaid, userid, score, grade) values('" + value1 + "', '" + value2 + "', '" + intvalue + "', '" + value4 + "');";
+			datainSQL = "insert into sungjeck(gangjwaid, userid, grade) values('" + value1 + "', '" + value2 + "', '" + value3 + "');";
 		}
 		
 		statement = connection.prepareStatement(datainSQL);
@@ -174,7 +173,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.class, gangjwa.inwon from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid;";
+		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.inwon, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid;";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -186,15 +185,19 @@ public class DBDAO implements IDAO{
 			String Gname = resultSet.getString("gangjwa.name");
 			String Uname = resultSet.getString("user.name");
 			String time = resultSet.getString("gangjwa.time");
-			String classs = resultSet.getString("gangjwa.class");
 			int inwon = Integer.parseInt(resultSet.getString("gangjwa.inwon"));
+			int openyear = Integer.parseInt(resultSet.getString("gangjwa.openyear"));
+			int hackjum = Integer.parseInt(resultSet.getString("gangjwa.hackjum"));
+			int ngrade = Integer.parseInt(resultSet.getString("gangjwa.ngrade"));
 			gangjwa = new GangjwaShow();
 			gangjwa.setGangjwaID(gangjwaID);
 			gangjwa.setGangjwaname(Gname);
 			gangjwa.setUsername(Uname);
 			gangjwa.setTime(time);
-			gangjwa.setClasss(classs);
 			gangjwa.setInwon(inwon);
+			gangjwa.setOpenyear(openyear);
+			gangjwa.setHackjum(hackjum);
+			gangjwa.setNgrade(ngrade);
 			gangjwalist.add(gangjwa);
 		}
 
@@ -208,7 +211,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.class, gangjwa.inwon from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid and user.userid = '" + ID + "';";
+		String sql = "select gangjwa.gangjwaid, gangjwa.name, user.name, gangjwa.time, gangjwa.openyear, gangjwa.hackjum, gangjwa.ngrade, gangjwa.inwon from projectsogong.gangjwa, projectsogong.user where gangjwa.userid = user.userid and user.userid = '" + ID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -220,15 +223,19 @@ public class DBDAO implements IDAO{
 			String Gname = resultSet.getString("gangjwa.name");
 			String Uname = resultSet.getString("user.name");
 			String time = resultSet.getString("gangjwa.time");
-			String classs = resultSet.getString("gangjwa.class");
 			int inwon = Integer.parseInt(resultSet.getString("gangjwa.inwon"));
+			int openyear = Integer.parseInt(resultSet.getString("gangjwa.openyear"));
+			int hackjum = Integer.parseInt(resultSet.getString("gangjwa.hackjum"));
+			int ngrade = Integer.parseInt(resultSet.getString("gangjwa.ngrade"));
 			gangjwa = new GangjwaShow();
 			gangjwa.setGangjwaID(gangjwaID);
 			gangjwa.setGangjwaname(Gname);
 			gangjwa.setUsername(Uname);
 			gangjwa.setTime(time);
-			gangjwa.setClasss(classs);
 			gangjwa.setInwon(inwon);
+			gangjwa.setOpenyear(openyear);
+			gangjwa.setHackjum(hackjum);
+			gangjwa.setNgrade(ngrade);
 			gangjwalist.add(gangjwa);
 		}
 
@@ -242,7 +249,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select sugang.gangjwaid, gangjwa.NAME, gangjwa.class, gangjwa.time from projectsogong.sugang, projectsogong.user, projectsogong.gangjwa where sugang.userid = user.userid and gangjwa.gangjwaid = sugang.gangjwaid and user.userid = '" + ID + "';";
+		String sql = "select sugang.gangjwaid, gangjwa.NAME, gangjwa.hackjum, gangjwa.time from projectsogong.sugang, projectsogong.user, projectsogong.gangjwa where sugang.userid = user.userid and gangjwa.gangjwaid = sugang.gangjwaid and user.userid = '" + ID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -253,11 +260,11 @@ public class DBDAO implements IDAO{
 			String gangjwaID = resultSet.getString("sugang.gangjwaid");
 			String Gname = resultSet.getString("gangjwa.NAME");
 			String time = resultSet.getString("gangjwa.time");
-			String classs = resultSet.getString("gangjwa.class");
+			int hackjum = Integer.parseInt(resultSet.getString("gangjwa.hackjum"));
 			sugang = new SugangShow();
 			sugang.setGangjwaID(gangjwaID);
 			sugang.setName(Gname);
-			sugang.setClasss(classs);
+			sugang.setHackjum(hackjum);
 			sugang.setTime(time);
 			suganglist.add(sugang);
 		}
@@ -272,7 +279,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select h.name, sungjeck.userid, score, grade from projectsogong.sungjeck, (select name, sugang.userid from projectsogong.sugang, projectsogong.user where sugang.userid = user.userid and gangjwaid = '" + gangjwaID + "') h where sungjeck.userid = h.userid;";
+		String sql = "select h.name, sungjeck.userid, grade from projectsogong.sungjeck, (select name, sugang.userid from projectsogong.sugang, projectsogong.user where sugang.userid = user.userid and gangjwaid = '" + gangjwaID + "') h where sungjeck.userid = h.userid;";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -284,7 +291,6 @@ public class DBDAO implements IDAO{
 			num++;
 			String name = resultSet.getString("h.name");
 			String id = resultSet.getString("sungjeck.userid");
-			int score = Integer.parseInt(resultSet.getString("score"));
 			String grade = resultSet.getString("grade");
 			inwon = new GangjwaInwon();
 			inwon.setName(name);
@@ -292,10 +298,8 @@ public class DBDAO implements IDAO{
 			inwon.setNum(num);
 			if(grade.equals("N")){
 				inwon.setGrade("미입력 상태");
-				inwon.setScore(-1);
 			}else{
 				inwon.setGrade(grade);
-				inwon.setScore(score);
 			}
 			inwonlist.add(inwon);
 		}
@@ -310,7 +314,7 @@ public class DBDAO implements IDAO{
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		
-		String sql = "select gangjwa.name, gangjwa.gangjwaid, sugangs.score, sugangs.grade from projectsogong.gangjwa, (SELECT sungjeck.gangjwaid, sungjeck.grade, sungjeck.score, sungjeck.userid FROM projectsogong.sungjeck, projectsogong.sugang where sungjeck.userid = sugang.userid and sungjeck.gangjwaid = sugang.gangjwaid) sugangs where sugangs.gangjwaid = gangjwa.gangjwaid and sugangs.userid = '" + userID + "';";
+		String sql = "select gangjwa.name, gangjwa.gangjwaid, sugangs.grade from projectsogong.gangjwa, (SELECT sungjeck.gangjwaid, sungjeck.grade, sungjeck.userid FROM projectsogong.sungjeck, projectsogong.sugang where sungjeck.userid = sugang.userid and sungjeck.gangjwaid = sugang.gangjwaid) sugangs where sugangs.gangjwaid = gangjwa.gangjwaid and sugangs.userid = '" + userID + "';";
 		connection = getConnection();
 		statement = connection.prepareStatement(sql);//쿼리문을 보낼준비(미리써둔 것을 준비해둠)
 		resultSet = statement.executeQuery(sql);
@@ -318,20 +322,17 @@ public class DBDAO implements IDAO{
 		SugangSungjeck sungjeck;
 		Vector<SugangSungjeck> sungjecklist = new Vector<SugangSungjeck>();
 		while(resultSet.next()){//여러개의 값이 나올수 있으니 값만큼 반복
-			//gangjwa.name, gangjwa.gangjwaid, sugangs.score, sugangs.grade
+			//gangjwa.name, gangjwa.gangjwaid, sugangs.grade
 			String gangjwaName = resultSet.getString("gangjwa.name");
 			String gangjwaID = resultSet.getString("gangjwa.gangjwaid");
-			int score = Integer.parseInt(resultSet.getString("sugangs.score"));
 			String grade = resultSet.getString("sugangs.grade");
 			sungjeck = new SugangSungjeck();
 			sungjeck.setGangjwaID(gangjwaID);
 			sungjeck.setGangjwaName(gangjwaName);
 			if(grade.equals("N")){
 				sungjeck.setGrade("교수님께서 아직 입력하지 않았습니다.");
-				sungjeck.setScore(-1);
 			}else{
 				sungjeck.setGrade(grade);
-				sungjeck.setScore(score);
 			}
 			sungjecklist.add(sungjeck);
 		}
@@ -341,15 +342,11 @@ public class DBDAO implements IDAO{
 	}
 	
 	@Override
-	public void updateSungjeck(String gangjwaID, String userID, int score, String grade) throws SQLException{
+	public void updateSungjeck(String gangjwaID, String userID, String grade) throws SQLException{
 		Connection connection = null;
 		PreparedStatement statement = null;
 		connection = getConnection();
-		String updateSQL = "update projectsogong.sungjeck set score = '" + score + "' where gangjwaid = '" + gangjwaID + "' and userid = '" + userID + "';";
-		statement = connection.prepareStatement(updateSQL);
-		statement.executeUpdate();
-		
-		updateSQL = "update projectsogong.sungjeck set grade = '" + grade + "' where gangjwaid = '" + gangjwaID + "' and userid = '" + userID + "';";
+		String updateSQL = "update projectsogong.sungjeck set grade = '" + grade + "' where gangjwaid = '" + gangjwaID + "' and userid = '" + userID + "';";
 		statement = connection.prepareStatement(updateSQL);
 		statement.executeUpdate();
 		statement.close();

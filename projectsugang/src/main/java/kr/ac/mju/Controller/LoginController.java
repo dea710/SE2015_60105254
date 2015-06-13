@@ -45,10 +45,14 @@ public class LoginController {
 					request.getSession().setAttribute("userSession", user);
 					request.getSession().setAttribute("result", user.getName());
 					return "loginH";
-				}else{//교수이면
+				}else if(user.getGrade().equals("g")){//교수이면
 					request.getSession().setAttribute("userSession", user);
 					request.getSession().setAttribute("result", user.getName());
 					return "loginG";
+				}else{
+					request.getSession().setAttribute("userSession", user);
+					request.getSession().setAttribute("result", user.getName());
+					return "loginA";
 				}
 			}
 			logger.info("로그인 실패: password missmatch");

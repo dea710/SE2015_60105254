@@ -15,7 +15,7 @@
 		아이디 <input type="text" name="userID"> <br/>
 		비밀번호  <input type="password" name="Password"><br/>
 		이름 <input type="text" name="name"> <br/>
-		직책<input type = "radio" name="grade" value="g">교수 <input type = "radio" name="grade" value="h" checked> 학생
+		직책<input type = "radio" name="grade" value="g">교수 <input type = "radio" name="grade" value="h" checked> 학생 <input type = "radio" name="grade" value="a"> 관리자
 		<input type="submit" value="가입하기"> <input type="reset" value="다시입력">
 	</form>
 <br/>

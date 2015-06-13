@@ -10,20 +10,18 @@
 <body>
 <table>
 	<tr>
-		<td callspan="4"> <h1>성적 리스트</h1> </td>
+		<td callspan="3"> <h1>성적 리스트</h1> </td>
 	</tr>
 	
 	<tr>
 		<td> 강좌번호 </td>
 		<td> 강좌이름 </td>
-		<td> 점수 </td>
-		<td> 등급 </td>
+		<td> 평점 </td>
 	</tr>
 					<c:forEach var="list" items="${list }">
 						<tr>
 							<td><c:out value="${list.gangjwaID }" /></td>
 							<td><c:out value="${list.gangjwaName }" /></td>
-							<td><c:out value="${list.score }" /></td>
 							<td><c:out value="${list.grade }" /></td>
 							
 						</tr>

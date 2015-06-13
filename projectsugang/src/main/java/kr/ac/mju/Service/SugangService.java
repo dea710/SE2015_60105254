@@ -39,7 +39,7 @@ public class SugangService {
 
 	public void sugangsincheong(Sugang sugang) throws SQLException {
 		DBDAO db = new DBDAO();
-		db.insert("sugang", sugang.getGangjwaID(), sugang.getUserID(), null, null, null, null);
+		db.insert("sugang", sugang.getGangjwaID(), sugang.getUserID(), null, null, null, null, null, null);
 		
 	}
 	

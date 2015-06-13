@@ -11,10 +11,13 @@
 
 		<form action="${pageContext.request.contextPath }/SungjeckController/Sungjeck.do" method="post">	
 		<table>
+		<tr>
+			<td>학생이름</td>
+			<td>평점</td>
+		</tr>
 			<tr>
 				<td>${userName }<input type="hidden" name="gangjwaID" value = "${gangjwaID }"><input type="hidden" name="userID" value = "${userID }"></td>
-				<td>점수(0~100) <input type="text" name="score"></td>
-				<td>등급
+				<td>
 					<select name="grade">
 						<option value="A+">A+</option>
 						<option value="A0">A0</option>

@@ -17,14 +17,14 @@
 		<td> 강좌번호 </td>
 		<td> 강좌이름 </td>
 		<td> 시간 </td>
-		<td> 반 </td>
+		<td> 학점 </td>
 	</tr>
 					<c:forEach var="list" items="${list }">
 						<tr>
 							<td><c:out value="${list.gangjwaID }" /></td>
 							<td><c:out value="${list.name }" /></td>
 							<td><c:out value="${list.time }" /></td>
-							<td><c:out value="${list.classs }" /></td>
+							<td><c:out value="${list.hackjum }" /></td>
 							
 						</tr>
 					</c:forEach>

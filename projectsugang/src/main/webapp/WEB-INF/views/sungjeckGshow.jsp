@@ -18,13 +18,11 @@
 		<td> 학생이름 </td>
 		<td> 점수</td>
 		<td> 등급</td>
-		<td> 성적 </td>
 	</tr>
 					<c:forEach var="list" items="${list }">
 						<tr>
 							<td><c:out value="${list.num }" /></td>
 							<td><c:out value="${list.name }" /></td>
-							<td><c:out value="${list.score }" /></td>
 							<td><c:out value="${list.grade }" /></td>
 							<td>
 								<form action="${pageContext.request.contextPath }/SungjeckController/Sungjeck.input" method="post">

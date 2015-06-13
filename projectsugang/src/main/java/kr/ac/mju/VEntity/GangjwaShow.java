@@ -7,8 +7,10 @@ public class GangjwaShow extends Entity{
 	private String gangjwaname;
 	private String username;
 	private String time;
-	private String classs;
 	private int inwon;
+	private int openyear;
+	private int hackjum;
+	private int ngrade;
 	
 	public String getGangjwaID() {return gangjwaID;}
 	public void setGangjwaID(String gangjwaID) {this.gangjwaID = gangjwaID;}
@@ -18,9 +20,13 @@ public class GangjwaShow extends Entity{
 	public void setUsername(String username) {this.username = username;}
 	public String getTime() {return time;}
 	public void setTime(String time) {this.time = time;}
-	public String getClasss() {return classs;}
-	public void setClasss(String classs) {this.classs = classs;}
 	public int getInwon() {return inwon;}
 	public void setInwon(int inwon) {this.inwon = inwon;}
+	public int getOpenyear() {return openyear;}
+	public void setOpenyear(int openyear) {this.openyear = openyear;}
+	public int getHackjum() {return hackjum;}
+	public void setHackjum(int hackjum) {this.hackjum = hackjum;}
+	public int getNgrade() {return ngrade;}
+	public void setNgrade(int ngrade) {this.ngrade = ngrade;}
 
 }

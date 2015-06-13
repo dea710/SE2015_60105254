@@ -37,8 +37,7 @@ public class JoinController {
 		request.getSession().setAttribute("result", "가입성공");
 		dao.write(user, "userData.txt");
 		*/
-		DBDAO dao = new DBDAO();
-		dao.insert("user", user.getID(), user.getPassword(), user.getName(), user.getGrade(), null, null);
+		service.join(user);
 		request.getSession().setAttribute("result", "가입성공");
 		return "result";//home으로 가는 방법 즉 home의 매핑 value를 redirect로 해서 준다.
 	}

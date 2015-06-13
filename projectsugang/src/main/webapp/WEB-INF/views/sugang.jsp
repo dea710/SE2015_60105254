@@ -17,7 +17,9 @@
 	<td> 강좌이름 </td>
 	<td> 담당교수님 </td>
 	<td> 시간 </td>
-	<td> 반 </td>
+	<td> 연도 </td>
+	<td> 학년 </td>
+	<td> 학점 </td>
 	<td> 최대인원 </td>
 	<td> 신청 </td>
 	</tr>
@@ -27,7 +29,9 @@
 							<td><c:out value="${list.gangjwaname }" /></td>
 							<td><c:out value="${list.username }" /></td>
 							<td><c:out value="${list.time }" /></td>
-							<td><c:out value="${list.classs }" /></td>
+							<td><c:out value="${list.openyear }" /></td>
+							<td><c:out value="${list.ngrade }" /></td>
+							<td><c:out value="${list.hackjum }" /></td>
 							<td><c:out value="${list.inwon }" /></td>
 							<td>
 								<form action="${pageContext.request.contextPath }/SugangController/Sugang.do" method="post">

@@ -14,16 +14,14 @@ public class SungjeckService {
 
 	public void input(Sungjeckinput sungjeckinput) throws SQLException {
 		DBDAO dao = new DBDAO();
-		dao.updateSungjeck(sungjeckinput.getGangjwaID(), sungjeckinput.getUserID(), sungjeckinput.getScore(), sungjeckinput.getGrade());
+		dao.updateSungjeck(sungjeckinput.getGangjwaID(), sungjeckinput.getUserID(), sungjeckinput.getGrade());
 		
 	}
 
-	public Sungjeckinput doo(String userID, String gangjwaID, int score,
-			String grade) {
+	public Sungjeckinput doo(String userID, String gangjwaID, String grade) {
 		Sungjeckinput sungjeckinput = new Sungjeckinput();
 		sungjeckinput.setGangjwaID(gangjwaID);
 		sungjeckinput.setGrade(grade);
-		sungjeckinput.setScore(score);
 		sungjeckinput.setUserID(userID);
 		return sungjeckinput;
 	}
